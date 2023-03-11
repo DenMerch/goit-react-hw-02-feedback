@@ -1,7 +1,8 @@
+import css from "./Feedback.module.css"
 export const FeedbackOptions = ({ onLeaveFeedback, options, name }) => {
     return (
         <>
-            <button type="button" onClick={onLeaveFeedback} name={name}>{options}</button>
+            <button className={css.button} type="button" onClick={onLeaveFeedback} name={name}>{options}</button>
         </>
     )
 }
