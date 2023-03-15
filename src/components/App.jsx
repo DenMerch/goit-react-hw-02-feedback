@@ -4,14 +4,13 @@ import { Section } from "./Section/Section ";
 import { Statistics } from "./Statistics/Statistics";
 import { Notification } from './Notification/Notification'
 
+let total = 0;
+
 export class App extends Component {
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    percentage: 0,
-    isStat: false,
   }
   handleClick = e => {
     this.setState(prevState => { return { [e.target.name]: prevState[e.target.name] + 1 } });
@@ -20,8 +19,9 @@ export class App extends Component {
     this.setIsStat();
   }
   countTotalFeedback = () => {
+    total++
     this.setState({
-      total: (this.state.total + 1)
+      total: total
 
     })
   }
@@ -50,9 +50,9 @@ export class App extends Component {
         }}
       >
         <Section title={"Please leave feedback"}>
-          <FeedbackOptions options="Good" onLeaveFeedback={this.handleClick} name="good" />
-          <FeedbackOptions options="Neutral" onLeaveFeedback={this.handleClick} name="neutral" />
-          <FeedbackOptions options="Bad" onLeaveFeedback={this.handleClick} name="bad" />
+          <FeedbackOptions options={Object.keys(this.state)} onLeaveFeedback={this.handleClick} />
+          {/* <FeedbackOptions options="Neutral" onLeaveFeedback={this.handleClick} name="neutral" />
+          <FeedbackOptions options="Bad" onLeaveFeedback={this.handleClick} name="bad" /> */}
         </Section>
         {this.state.isStat ? <Section title={"Statistics"}>
           <Statistics good={this.state.good}

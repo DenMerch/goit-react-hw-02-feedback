@@ -1,15 +1,25 @@
 import css from "./Feedback.module.css"
 import PropTypes from 'prop-types';
-export const FeedbackOptions = ({ onLeaveFeedback, options, name }) => {
+export const FeedbackOptions = ({ onLeaveFeedback, options }) => {
+
     return (
         <>
-            <button className={css.button} type="button" onClick={onLeaveFeedback} name={name}>{options}</button>
+            {options.map(option => {
+                if (option === "good" || option === "bad" || option === "neutral") {
+                    return (< button key={option} className={css.button} type="button"
+                        onClick={onLeaveFeedback} name={option}>{option}</button>)
+                } else {
+                    return null
+                }
+
+            })}
+
         </>
     )
 }
 FeedbackOptions.propTypes = {
     onLeaveFeedback: PropTypes.func.isRequired,
-    options: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+
 }
 
